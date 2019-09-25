@@ -12,16 +12,43 @@
       <h1>Password Generator</h1>
     </header>
     <h2>Generate a Password</h2>
+
+    <!-- Add method = POST ? -->
+    <!-- Putting in a form in order to collect user input in the form of a checkbox / password length preference -->
+    <form action="" id="passwordGenerationForm">
+
+      <!-- Password must be between 8 and 128 characters, thus the min and max -->
+      <label for="length">Password Length</label>
+      <input type="number" name="length" id="length" value="" min="8" max="128" />
+
+
+      <label for="specialChars">
+        <input type="checkbox" name="specialChars" id="specialChars" />
+        Enable Special Characters
+      </label>
+
+
+
+
+
+
+
+    </form>
+
+
     <textarea
       readonly
       id="password"
       placeholder="Your Secure Password"
       aria-label="Generated Password"
     ></textarea>
+
     <button id="generate">Generate Password</button>
     <button id="copy">
       Copy to Clipboard
     </button>
     
+
+    <script src="script.js"></script>
   </body>
 </html>
