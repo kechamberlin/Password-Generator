@@ -13,6 +13,8 @@
     </header>
     <h2>Generate a Password</h2>
 
+
+    
     <!-- Add method = POST ? -->
     <!-- Putting in a form in order to collect user input in the form of a checkbox / password length preference -->
     <form action="" id="passwordGenerationForm">
@@ -27,26 +29,44 @@
         Enable Special Characters
       </label>
 
+      <label for="numericChars">
+        <input type="checkbox" name="numericChars" id="numericChars" />
+        Enable Numeric Characters
+      </label>
 
+      <label for="lowercase">
+        <input type="checkbox" name="lowercase" id="lowercase" />
+        Enable Lowercase Characters
+      </label>
 
+      <label for="uppercase">
+        <input type="checkbox" name="uppercase" id="uppercase" />
+        Enable Uppercase Characters
+      </label>
 
+      <br><br><br>
 
+      <textarea
+        readonly
+        id="password"
+        placeholder="Your Secure Password"
+        aria-label="Generated Password"
+      ></textarea>
+
+      <br><br><br>
+
+      <button type="submit" id="generate">Generate Password</button>
+    
+      <!-- Omit ? -->
+      <button type="submit" id="copy">
+        Copy to Clipboard
+      </button>
 
 
     </form>
 
 
-    <textarea
-      readonly
-      id="password"
-      placeholder="Your Secure Password"
-      aria-label="Generated Password"
-    ></textarea>
 
-    <button id="generate">Generate Password</button>
-    <button id="copy">
-      Copy to Clipboard
-    </button>
     
 
     <script src="script.js"></script>
