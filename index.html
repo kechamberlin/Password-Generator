@@ -7,69 +7,99 @@
     <title>Password Generator</title>
   </head>
   <body>
-    <!-- Focus first on the Javascript, NOT the HTML / CSS (do only if time permits) -->
     <header>
       <h1>Password Generator</h1>
     </header>
     <h2>Generate a Password</h2>
-
-
-
-    <!-- Add method = POST ? -->
-    <!-- Putting in a form in order to collect user input in the form of a checkbox / password length preference -->
-    <form action="" id="passwordGenerationForm">
-
-      <!-- Password must be between 8 and 128 characters, thus the min and max -->
-      <label for="length">Password Length</label>
-      <input type="number" name="length" id="length" value="" min="8" max="128" />
-
-
-      <!-- type="checkbox" will put a checkbox that the user can enable or disable if they want it in their password -->
-      <label for="specialChars">
-        <input type="checkbox" name="specialChars" id="specialChars" />
-        Enable Special Characters
-      </label>
-
-      <label for="numericChars">
-        <input type="checkbox" name="numericChars" id="numericChars" />
-        Enable Numeric Characters
-      </label>
-
-      <label for="lowercase">
-        <input type="checkbox" name="lowercase" id="lowercase" />
-        Enable Lowercase Characters
-      </label>
-
-      <label for="uppercase">
-        <input type="checkbox" name="uppercase" id="uppercase" />
-        Enable Uppercase Characters
-      </label>
-
-      <br><br><br>
-
-      <textarea
-        readonly
-        id="password"
-        placeholder="Your Secure Password"
-        aria-label="Generated Password"
-      ></textarea>
-
-      <br><br><br>
-
-      <button type="submit" id="generate">Generate Password</button>
     
-      <!-- Omit ? -->
-      <button type="submit" id="copy">
-        Copy to Clipboard
-      </button>
+    <!-- Put a form to collect user input (in the form of a checkbox / password length preference) -->
+    <form action="" method="POST" id="passwordGenerationForm">
 
+        <label for="length">Password Length</label>
+        <input type="number" name="length" id="length" value="" min="8" max="128" />
+
+        <label for="specialChars">
+            <input type="checkbox" name="specialChars" id="specialChars" value="1" />
+            Enable special characters
+        </label>
+
+        <label for="numericChars">
+            <input type="checkbox" name="numericChars" id="numericChars" value="1" />
+            Enable numeric character
+        </label>
+
+        <label for="lowercase">
+            <input type="checkbox" name="lowercase" id="lowercase" value="1" />
+            Enable lowercase characters
+        </label>
+
+        <label for="uppercase">
+            <input type="checkbox" name="uppercase" id="uppercase" value="1" />
+            Enable uppercase characters
+        </label>
+
+        <br><br><br>
+
+        <textarea
+            readonly
+            id="password"
+            placeholder="Your Secure Password"
+            aria-label="Generated Password"
+          ></textarea>
+
+          <br><br><br>
+          
+          <button id="generate" type="submit">Generate Password</button>
+          <button id="copy" type="button">
+            Copy to Clipboard
+          </button>
 
     </form>
 
 
+    <script>
+      
+        const form = document.getElementById("passwordGenerationForm");
+        const passwordTextArea = document.getElementById("password");
+        const passwordLengthCheckbox = document.getElementById("length");
 
-    
+        function isChecked(checkboxId) {
+            const el = document.getElementById(checkboxId);
+            return el.checked;
+        }
 
-    <script src="script.js"></script>
+        function getAvailableCharacters() {
+            const lowercaseChars = "abcdefghijklmnopqrstuvwxyz";
+            const uppercaseChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            const numericChars = "1234567890";
+            const specialChars = "!@#$%^&*~+-=_(/),.:;<>?[]{}|";
+
+            return (isChecked("lowercase") ? lowercaseChars : "")
+                + (isChecked("uppercase") ? uppercaseChars : "")
+                + (isChecked("numericChars") ? numericChars : "")
+                + (isChecked("specialChars") ? specialChars : "");
+        }
+
+        function generatePassword() {
+            const availableCharacters = getAvailableCharacters();
+            console.log({ availableCharacters });
+
+            let password = "";
+
+            for (let i = 1; i <= passwordLengthCheckbox.value; i++) {
+                password += availableCharacters.charAt(Math.floor(Math.random() * availableCharacters.length));
+            }
+
+            return password;
+        }
+        // Submit action (prevent default), generate a password, place password in the text area
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+            const password = generatePassword();
+            passwordTextArea.value = password;
+        });
+
+    </script>
+
   </body>
 </html>
